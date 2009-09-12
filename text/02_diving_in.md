@@ -1,4 +1,4 @@
-# Diving straight in
+## Diving straight in
 
 Say you wanted to get your twitter stream, doesn't sound too hard? It isn't! 
 

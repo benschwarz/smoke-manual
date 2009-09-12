@@ -12,33 +12,36 @@
 	<meta name="keywords" content="ruby, dsl, web, programming, parsing" />
 </head>
 <body>
-	<div class="frontcover"></div>
-	<div class="halftitlepage">
-		<h1 class="no-toc">Smoke</h1>
-	</div>
+  <div id="wrapper">
+  	<div class="frontcover"></div>
+  	<div class="halftitlepage">
+  		<h1 class="no-toc">Smoke</h1>
+  	</div>
 
-	<div class="titlepage">
-		<h1 class="no-toc">Smoke</h1>
-		<p class="no-toc">Ben Schwarz</p>
-	</div>
+    <div class="toc"><div class="level2 introduction"><a href="#introduction"><span>Introduction</span></a></div><div class="level3 the-concept"><a href="#the-concept"><span>The concept</span></a></div><div class="level2 diving-straight-in"><a href="#diving-straight-in"><span>Diving straight in</span></a></div><div class="level2 cool-stuff-smoke-does"><a href="#cool-stuff-smoke-does"><span>Cool stuff smoke does</span></a></div><div class="level3 output-formats"><a href="#output-formats"><span>Output formats</span></a></div><div class="level3 smart-requests"><a href="#smart-requests"><span>Smart requests</span></a></div><div class="level2 configuation"><a href="#configuation"><span>Configuation</span></a></div><div class="level2 transparent-request-caching"><a href="#transparent-request-caching"><span>Transparent request caching</span></a></div><div class="level3 expiry"><a href="#expiry"><span>Expiry</span></a></div></div>
+    
+  	<div class="titlepage">
+  		<h1 class="no-toc">Smoke</h1>
+  		<p class="no-toc">Ben Schwarz</p>
+  	</div>
 	
-	<div class="imprint">
-		<p>Copyright Ben Schwarz 2009. All rights reserved.</p>
-	</div>
+  	<div class="imprint">
+  		<p>Copyright Ben Schwarz 2009. All rights reserved.</p>
+  	</div>
 	
-	<div class="chapters">
-		<div class="chapter"><h1>Introduction</h1>
+  	<div class="chapters">
+  		<div class="chapter"><h2 id="introduction">Introduction</h2>
 
 <p>Smoke is a DSL written in Ruby. Its primary goal is to be a very simple interface to query many online sources, chop them up into usable pieces and use them in ways that the source provider may have never imagined.</p>
 
 <p>This document is aimed to serve as a guide for usage to get you started.</p>
 
-<h2 id="the-concept">The concept</h2>
+<h3 id="the-concept">The concept</h3>
 
 <p>The concept comes from using <a href="http://pipes.yahoo.com">Yahoo Pipes</a> to make web based mash ups: Get a list of tv shows for my torrent client, compile a recipe book or make tools to give me a list of albums that artists in my music library are about to be released.</p>
 
 
-</div><div class="chapter"><h1>Diving straight in</h1>
+</div><div class="chapter"><h2 id="diving-straight-in">Diving straight in</h2>
 
 <p>Say you wanted to get your twitter stream, doesn't sound too hard? It isn't!</p>
 
@@ -79,27 +82,104 @@ Perhaps you'd like to open an interface to pull twitter feeds for multiple users
 <p>The smoke DSL is pretty easy to pickup. All methods are well documented using rdoc, so exploring the API should be easy.</p>
 
 
-</div><div class="chapter"><h1>Cool stuff smoke does</h1>
+</div><div class="chapter"><h2 id="cool-stuff-smoke-does">Cool stuff smoke does</h2>
 
-<h2 id="output-formats">Output formats</h2>
+<h3 id="output-formats">Output formats</h3>
 
 <p>Not only does Smoke query a web service and automagically translate Json or XML to an array of ruby hashes, it will also output in Json or Yaml.</p>
 
 <pre class="sunburst ruby"><span class="Support">Smoke</span>.<span class="Entity">twitter</span>.<span class="Entity">output</span>(<span class="Constant"><span class="Constant">:</span>yaml</span>)
 </pre>
 
-<h2 id="smart-requests">Smart requests</h2>
+<h3 id="smart-requests">Smart requests</h3>
 
 <p>All requests ask the web service on the other end to gzip its data before it delivers it back to smoke. This means that less data is transferred - You can compress plain text pretty successfully.</p>
 
 <p>Not all services support / implement gzip, but for those who do, its a clear win.</p>
 
 
-</div>
-	</div>
+</div><div class="chapter"><h2 id="configuation">Configuation</h2>
 
-	<div class="white_page"></div>
-	<div class="white_page"></div>
-	<div class="backcover"></div>
+<p>Smoke can be configured to a couple of things differently, at the time of writing the major functional differences are:</p>
+
+<ul>
+<li>logging</li>
+<li>caching</li>
+<li>setting the user agent</li>
+</ul>
+
+
+<p>If you wanted to enable logging and masquerade as something other than Smoke (say, a browser - you cheeky bastard), you could add something like this before your Smoke definitions:</p>
+
+<pre class="sunburst ruby"><span class="Support">Smoke</span>.<span class="Entity">configure</span> <span class="Keyword">do </span>|<span class="Variable">c</span>|
+  c[<span class="Constant"><span class="Constant">:</span>enable_logging</span>] <span class="Keyword">=</span> <span class="Constant">true</span>
+  c[<span class="Constant"><span class="Constant">:</span>user_agent</span>] <span class="Keyword">=</span> <span class="String"><span class="String">&quot;</span>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)<span class="String">&quot;</span></span> <span class="Comment"><span class="Comment">#</span> har, har</span>
+<span class="Keyword">end</span>
+</pre>
+
+
+</div><div class="chapter"><h2 id="transparent-request-caching">Transparent request caching</h2>
+
+<p>Now that you've pulled your sources together, you launch your web site and go out to dinner, you might even brag to your nerdy company about how quickly you pulled some new cool shit together. Then you check your twitter mentions.</p>
+
+<p>Everyone is saying that the site you just linked to is 500ing. Damn.
+That happened to me, I rescued <em>nothing</em>, doh!</p>
+
+<p>The responsible party was twitters api request limit (per hour), we need to make less requests. Enter, caching.</p>
+
+<p>Caching is <em>disabled by default</em>, however, its really easy to turn it on:</p>
+
+<pre class="sunburst ruby"><span class="Support">Smoke</span>.<span class="Entity">configure</span> <span class="Keyword">do </span>|<span class="Variable">c</span>|
+  c[<span class="Constant"><span class="Constant">:</span>cache</span>][<span class="Constant"><span class="Constant">:</span>enabled</span>] <span class="Keyword">=</span> <span class="Constant">true</span>
+  c[<span class="Constant"><span class="Constant">:</span>cache</span>][<span class="Constant"><span class="Constant">:</span>store</span>] <span class="Keyword">=</span> <span class="Constant"><span class="Constant">:</span>memory</span>
+<span class="Keyword">end</span>
+</pre>
+
+<p>The above example will use a ruby hash to store the contents of your requests in memory. In some cases, this might be okay, however, there are more options.</p>
+
+<p>Caching is implemented using <a href="http://github.com/wycats">wycats</a> <a href="http://github.com/wycats/moneta">moneta</a>, it provides a common interface to many hash storage types:</p>
+
+<ul>
+<li>file</li>
+<li>memcache</li>
+<li>tokyo cabinet</li>
+<li>a ruby hash (memory)</li>
+<li>mongodb</li>
+</ul>
+
+
+<p>There are more, but if you want to know more about them, I suggest you read a bit about <a href="http://github.com/wycats/moneta">moneta</a></p>
+
+<p>If you wanted to use Smoke caching with <a href="http://www.heroku.com">Heroku</a>, you could setup something like this (you'll need memcached enabled on your heroku instance):</p>
+
+<pre class="sunburst ruby"><span class="Support">Smoke</span>.<span class="Entity">configure</span> <span class="Keyword">do </span>|<span class="Variable">c</span>|
+  c[<span class="Constant"><span class="Constant">:</span>cache</span>][<span class="Constant"><span class="Constant">:</span>enabled</span>] <span class="Keyword">=</span> <span class="Constant">true</span>
+  c[<span class="Constant"><span class="Constant">:</span>cache</span>][<span class="Constant"><span class="Constant">:</span>store</span>] <span class="Keyword">=</span> <span class="Constant"><span class="Constant">:</span>memcache</span>
+  c[<span class="Constant"><span class="Constant">:</span>cache</span>][<span class="Constant"><span class="Constant">:</span>options</span>] <span class="Keyword">=</span> {
+    <span class="Constant"><span class="Constant">:</span>server</span> =&gt; <span class="Variable">ENV</span>[<span class="String"><span class="String">'</span>MEMCACHE_SERVERS<span class="String">'</span></span>].<span class="Entity">split</span>(<span class="String"><span class="String">'</span>,<span class="String">'</span></span>), 
+    <span class="Constant"><span class="Constant">:</span>namespace</span> =&gt; <span class="Variable">ENV</span>[<span class="String"><span class="String">'</span>MEMCACHE_NAMESPACE<span class="String">'</span></span>]
+  }
+<span class="Keyword">end</span>
+</pre>
+
+<h3 id="expiry">Expiry</h3>
+
+<p>Smoke defaults to 1800 seconds for expiry (thats 30 minutes), you can change the expiry time by adding another option to the configuration hash.</p>
+
+<pre class="sunburst ruby"><span class="Support">Smoke</span>.<span class="Entity">configure</span> <span class="Keyword">do </span>|<span class="Variable">c</span>|
+  c[<span class="Constant"><span class="Constant">:</span>cache</span>][<span class="Constant"><span class="Constant">:</span>enabled</span>] <span class="Keyword">=</span> <span class="Constant">true</span>
+  c[<span class="Constant"><span class="Constant">:</span>cache</span>][<span class="Constant"><span class="Constant">:</span>store</span>] <span class="Keyword">=</span> <span class="Constant"><span class="Constant">:</span>memory</span>
+  c[<span class="Constant"><span class="Constant">:</span>cache</span>][<span class="Constant"><span class="Constant">:</span>expiry</span>] <span class="Keyword">=</span> <span class="Constant">3600</span> <span class="Comment"><span class="Comment">#</span> 1 Hour</span>
+<span class="Keyword">end</span>
+</pre>
+
+
+</div>
+  	</div>
+
+  	<div class="white_page"></div>
+  	<div class="white_page"></div>
+  	<div class="backcover"></div>
+  </div>
 </body>
 </html>
