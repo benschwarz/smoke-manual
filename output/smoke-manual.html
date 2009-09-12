@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="../templates/layout.css"/>
+	<link rel="stylesheet" type="text/css" href="../templates/syntax.css"/>
+	<link rel="stylesheet" type="text/css" href="../templates/user.css"/>
+	
+	<meta name="author" content="Ben Schwarz" />
+	<meta name="subject" content="Smoke, a ruby DSL for reinterpreting the web" />
+	<meta name="keywords" content="ruby, dsl, web, programming, parsing" />
+</head>
+<body>
+	<div class="frontcover"></div>
+	<div class="halftitlepage">
+		<h1 class="no-toc">Smoke</h1>
+	</div>
+
+	<div class="titlepage">
+		<h1 class="no-toc">Smoke</h1>
+		<p class="no-toc">Ben Schwarz</p>
+	</div>
+	
+	<div class="imprint">
+		<p>Copyright Ben Schwarz 2009. All rights reserved.</p>
+	</div>
+	
+	<div class="chapters">
+		<div class="chapter"><h2 id="introduction">Introduction</h2>
+
+<p>Smoke is a DSL written in Ruby. Its primary goal is to be a very simple interface to query many online sources, chop them up into usable pieces and use them in ways that the source provider may have never imagined.</p>
+
+<p>This document is aimed to serve as a guide for usage to get you started.</p>
+
+<h3 id="the-concept">The concept</h3>
+
+<p>The concept comes from using <a href="http://pipes.yahoo.com">Yahoo Pipes</a> to make web based mash ups: Get a list of tv shows for my torrent client, compile a recipe book or make tools to give me a list of albums that artists in my music library are about to be released.</p>
+
+
+</div><div class="chapter"><p>h1. Diving straight in</p>
+
+<p>Say you wanted to get your twitter stream, doesn't sound too hard? It isn't!</p>
+
+<p>The first thing that you'll need to do is discover your source. Smoke supports XML, JSON and RSS / Atom.</p>
+
+<p>syntax(ruby). 02_twitter.rb</p>
+
+<p>You'll note pretty quickly that I've specified a format that the</p>
+
+<p>The smoke DSL is pretty easy to pickup. All methods are well documented using rdoc, so exploring the API should be easy.</p>
+
+
+</div><div class="chapter"><h2 id="cool-stuff-smoke-does">Cool stuff smoke does</h2>
+
+<h3 id="output-formats">Output formats</h3>
+
+<p>Not only does Smoke query a web service and automagically translate Json or XML to an array of ruby hashes, it will also output in Json or Yaml.</p>
+
+<pre class="sunburst ruby"><span class="Support">Smoke</span>.<span class="Entity">twitter</span>.<span class="Entity">output</span>(<span class="Constant"><span class="Constant">:</span>yaml</span>)
+</pre>
+
+
+</div>
+	</div>
+
+	<div class="white_page"></div>
+	<div class="white_page"></div>
+	<div class="backcover"></div>
+</body>
+</html>

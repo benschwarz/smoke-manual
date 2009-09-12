@@ -1,0 +1,1 @@
+Smoke.twitter.output(:yaml)

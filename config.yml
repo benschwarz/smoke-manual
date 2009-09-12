@@ -1,0 +1,9 @@
+title: "Smoke"
+year: 2009
+authors:
+  - "Ben Schwarz"
+subject: "Smoke, a ruby DSL for reinterpreting the web"
+keywords: "ruby, dsl, web, programming, parsing"
+theme: sunburst
+base_url: http://benschwarz.github.com/smoke
+copyright: "Copyright Ben Schwarz 2009. All rights reserved."
