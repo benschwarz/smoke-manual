@@ -4,15 +4,15 @@
 
 html { 
   margin: 0;
-  font: 10pt/1.26 "Gill Sans", sans-serif;
+  font: 10pt/1.26 "Helvetica", sans-serif;
 }
 
 body { 
-  margin: 0 0 0 13%;
+  margin: 0 13%;
 }
 
 h1, h2, h3, h4, h5, h6 { 
-  font-family: "Gill Sans", sans-serif;
+  font-family: "Helvetica", sans-serif;
   margin: 2em 0 0.5em 0;
   page-break-after: avoid;
 } 
@@ -161,13 +161,13 @@ table.lined td, table.lined th {
 
 @page :left {
   @top-left {
-    font: 11pt "Gill Sans", serif;
+    font: 11pt "Helvetica", serif;
     vertical-align: bottom;
     padding-bottom: 2em;
   }
 
   @bottom-left {
-    font: 11pt "Gill Sans", serif;
+    font: 11pt "Helvetica", serif;
     content: counter(page);
     padding-top: 2em;
     vertical-align: top;
@@ -176,14 +176,14 @@ table.lined td, table.lined th {
 
 @page :right {
   @top-right {
-    font: 11pt "Gill Sans", serif;
+    font: 11pt "Helvetica", serif;
     content: string(header, first); 
     vertical-align: bottom;
     padding-bottom: 2em; 
   }
 
   @bottom-right {
-    font: 11pt "Gill Sans", serif;
+    font: 11pt "Helvetica", serif;
     content: counter(page);
     text-align: right;
     vertical-align: top;
@@ -193,14 +193,14 @@ table.lined td, table.lined th {
 
 @page frontmatter :left {
   @top-left {
-    font: 11pt "Gill Sans", serif;
+    font: 11pt "Helvetica", serif;
     content: string(title);
     vertical-align: bottom;
     padding-bottom: 2em;
   }
 
   @bottom-left {
-    font: 11pt "Gill Sans", serif;
+    font: 11pt "Helvetica", serif;
     content: counter(page, lower-roman);
     padding-top: 2em;
     vertical-align: top;
@@ -211,14 +211,14 @@ table.lined td, table.lined th {
 
 @page frontmatter :right {
   @top-right {
-    font: 11pt "Gill Sans", serif;
+    font: 11pt "Helvetica", serif;
     content: string(header, first); 
     vertical-align: bottom;
     padding-bottom: 2em; 
   }
 
   @bottom-right {
-    font: 11pt "Gill Sans", serif;
+    font: 11pt "Helvetica", serif;
     content: counter(page, lower-roman);
     text-align: right;
     vertical-align: top;
@@ -459,7 +459,7 @@ code, pre, span.css, span.value, span.declaration {
 
 
 @media screen, handheld {
-  html { margin: 1em; font: 14px "Gill Sans", sans-serif; }
+  html { margin: 1em; font: 14px "Helvetica", sans-serif; }
   h1 { margin-bottom: 0.5em }
   div.frontcover, div.backcover, div.halftitlepage, div.titlepage, div.imprint, 
   div.dedication, div.foreword, div.toc, div.index { display: none }
