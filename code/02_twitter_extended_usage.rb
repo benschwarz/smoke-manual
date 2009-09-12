@@ -1,0 +1,1 @@
+Smoke.twitter.username(:benschwarz).output
