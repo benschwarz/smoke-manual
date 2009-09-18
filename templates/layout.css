@@ -56,9 +56,9 @@ p.author {
   text-align: right;
 }
 
-pre {  margin: 1em 1.3em; color: #600; }
+pre {  margin: 1em 1.3em; color: #600; page-break-inside: avoid; }
 
-a { text-decoration: none; color: black }
+a { text-decoration: none; color: black; }
 
 /* cross-references */
 
